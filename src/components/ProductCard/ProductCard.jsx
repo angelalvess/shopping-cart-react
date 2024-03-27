@@ -3,9 +3,17 @@ import { FaCartPlus } from 'react-icons/fa';
 
 import './ProductCard.css';
 import formatCurrency from '../../utils/formatCurrency';
+import { useContext } from 'react';
+import AppContext from '../../context/AppContext';
 
 function ProductCard({ data }) {
   const { title, price, thumbnail } = data;
+
+  const { cartItems, setCartItems } = useContext(AppContext);
+
+  const handleAddCart = () => {
+    setCartItems([...cartItems, data]);
+  };
 
   return (
     <section className="product-card">
@@ -20,7 +28,7 @@ function ProductCard({ data }) {
         <h2 className="card-title">{title}</h2>
       </div>
 
-      <button type="button" className="button-add-cart">
+      <button type="button" className="button-add-cart" onClick={handleAddCart}>
         <FaCartPlus />
       </button>
     </section>
